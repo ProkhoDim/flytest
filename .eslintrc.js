@@ -1,4 +1,13 @@
 module.exports = {
-  root: true,
-  extends: '@react-native-community',
+    root: true,
+    extends: '@react-native-community',
+    rules: {
+        'react-hooks/exhaustive-deps': [
+            'warn',
+            {
+                additionalHooks:
+                    'useDispatch|useOtherHookWhichWillDefinitelyNotChange',
+            },
+        ],
+    },
 };

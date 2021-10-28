@@ -1,12 +1,11 @@
 // @ts-check
-import React, {useEffect, useState} from 'react';
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
-import {
-  NavigationFunctionComponent,
-  NavigationComponentProps,
-} from 'react-native-navigation';
-import {useDispatch, useSelector} from 'react-redux';
-import {CounterActions} from '../services';
+import React, { useEffect, useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import nav_comp from '../navigation/nav_comp';
+import nav_ids from '../navigation/nav_ids';
+import { CounterActions } from '../services';
+import { counterSelectors } from '../services/selectors';
 
 /**
  * @typedef {Object} SettingsScreenProps
@@ -15,62 +14,72 @@ import {CounterActions} from '../services';
  */
 
 /**
- * @type NavigationFunctionComponent
- * @param {NavigationComponentProps & SettingsScreenProps} props
+ *
+ * @type {import('react-native-navigation').NavigationFunctionComponent} Component with Navigation
+ * @param {import('react-native-navigation').NavigationComponentProps & SettingsScreenProps} props
  */
 const SettingsScreen = props => {
-  const dispatch = useDispatch();
-  const [value, setValue] = useState('');
+    const dispatch = useDispatch();
+    const [value, setValue] = useState('');
 
-  const payloadValue = useSelector(s => s.counterPayload);
+    // @ts-ignore
+    const payloadValue = useSelector(counterSelectors.counterPayload);
 
-  useEffect(() => {
-    setValue(payloadValue.toString());
-  }, [payloadValue]);
+    useEffect(() => {
+        setValue(payloadValue.toString());
+    }, [payloadValue]);
 
-  const onInputChange = value => {
-    const parsedValue = value
-      ? /\d{1,}\.\d{1,}|\d{1,}\.|\d{1,}/.exec(value)
-      : 0;
+    const onInputChange = (/** @type {String} */ text) => {
+        const parsedValue = text
+            ? /\d{1,}\.\d{1,}|\d{1,}\.|\d{1,}/.exec(text)
+            : 0;
 
-    setValue(parsedValue ? parsedValue[0] : '');
-  };
+        setValue(parsedValue ? parsedValue[0] : '');
+    };
 
-  const counterUpdate = () => {
-    dispatch(CounterActions.updateCounter(+value));
-  };
+    const counterUpdate = () => {
+        dispatch(CounterActions.updateCounter(+value));
+    };
 
-  return (
-    <View>
-      <Text style={styles.text}> Settings Screen </Text>
-      <View>
-        <TextInput
-          value={value}
-          keyboardType="number-pad"
-          placeholder="Input counter increment"
-          onChangeText={onInputChange}
-        />
-        <Button title="Update" onPress={counterUpdate} />
-      </View>
-    </View>
-  );
+    return (
+        <View>
+            <Text style={styles.text}> Settings Screen </Text>
+            <View>
+                <TextInput
+                    value={value}
+                    keyboardType="number-pad"
+                    placeholder="Input counter increment"
+                    onChangeText={onInputChange}
+                />
+                <Button title="Update" onPress={counterUpdate} />
+            </View>
+        </View>
+    );
 };
 
 SettingsScreen.options = {
-  topBar: {
-    // leftButtons: [{text: 'Home', allCaps: false, id: 'SettingsBackButton'}],
-    backButton: {popStackOnPress: false},
-  },
-  animations: {push: {enabled: true, waitForRender: false}},
+    topBar: {
+        leftButtons: [
+            {
+                id: nav_comp.BURGER,
+                component: {
+                    name: nav_comp.BURGER,
+                    id: nav_ids.homeBurger,
+                },
+            },
+        ],
+        backButton: { popStackOnPress: false },
+    },
+    animations: { push: { enabled: true, waitForRender: false } },
 };
 
 export default SettingsScreen;
 
 const styles = StyleSheet.create({
-  wrap: {
-    flex: 1,
-  },
-  text: {
-    fontSize: 20,
-  },
+    wrap: {
+        flex: 1,
+    },
+    text: {
+        fontSize: 20,
+    },
 });
