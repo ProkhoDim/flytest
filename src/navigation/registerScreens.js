@@ -3,7 +3,7 @@ import routes from './routes';
 import HomeScreen from '../screens/HomeScreen';
 import MakeupScreen from '../screens/MakeupScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import { WrappedComponent } from '../services/store';
+import { WrappedComponent } from '../redux/store';
 import Counter from '../components/Counter';
 import nav_comp from './nav_comp';
 import Burger from '../components/Burger';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { SearchActions } from '../../services';
+import { SearchActions } from '../../redux';
 
 const SearchForm = () => {
     const dispatch = useDispatch();

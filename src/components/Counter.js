@@ -2,7 +2,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { counterSelectors } from '../services/selectors';
+import { counterSelectors } from '../redux/selectors';
 
 /**
  * @type {import('react-native-navigation').NavigationFunctionComponent}

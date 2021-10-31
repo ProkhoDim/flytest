@@ -4,13 +4,21 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 /**
  * @typedef {import('react-native').ViewStyle} Styles
  */
-
+/**
+ * @param {Object} p
+ * @param {Number=} p.size
+ * @param {String=} p.color
+ * @param {String=} p.fillColor
+ * @param {Boolean=} p.checked
+ * @param {Function=} p.onPress
+ * @param {Styles=} p.style
+ */
 const Checkbox = ({
     size = 30,
     color = 'grey',
     fillColor = '#00AAFF',
     checked = false,
-    onPress = () => console.log(),
+    onPress = undefined,
     style = {},
 }) => {
     /** @type {Styles}*/
@@ -51,8 +59,10 @@ const Checkbox = ({
 
     return (
         <TouchableOpacity
+            disabled={onPress ? false : true}
             style={[boxStyles, style]}
-            onPress={() => onPress(checked)}>
+            onPress={onPress ? () => onPress(checked) : null}
+        >
             <View style={firstLineStyles} />
             <View style={secondLineStyles} />
         </TouchableOpacity>

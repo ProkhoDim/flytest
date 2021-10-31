@@ -5,7 +5,7 @@ import { Navigation } from 'react-native-navigation';
 import { useDispatch } from 'react-redux';
 import { bottomTabs } from '../navigation/rootConfig';
 import routes from '../navigation/routes';
-import { CounterActions } from '../services';
+import { CounterActions } from '../redux';
 
 /**
  * @typedef {import('react-native-navigation').NavigationFunctionComponent} NavigationFunctionComponent

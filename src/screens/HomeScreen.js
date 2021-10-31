@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import nav_comp from '../navigation/nav_comp';
 import nav_ids from '../navigation/nav_ids';
 import routes from '../navigation/routes';
-import { CounterActions } from '../services';
-import { counterSelectors } from '../services/selectors';
+import { CounterActions } from '../redux';
+import { counterSelectors } from '../redux/selectors';
 
 /**
  * @type {import('react-native-navigation').NavigationFunctionComponent}

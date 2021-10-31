@@ -4,8 +4,8 @@ import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import nav_comp from '../navigation/nav_comp';
 import nav_ids from '../navigation/nav_ids';
-import { CounterActions } from '../services';
-import { counterSelectors } from '../services/selectors';
+import { CounterActions } from '../redux';
+import { counterSelectors } from '../redux/selectors';
 
 /**
  * @typedef {Object} SettingsScreenProps
