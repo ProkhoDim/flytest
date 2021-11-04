@@ -13,23 +13,11 @@
  * @property {Number} [price.to]
  */
 
-/**
- * @param {Object} filters
- * @param {String[]} [filters.tags]
- * @param {String} [filters.brand]
- * @param {String} [filters.category]
- * @param {Object} [filters.rating]
- * @param {Number} [filters.rating.greater]
- * @param {Number} [filters.rating.less]
- * @param {Object} [filters.price]
- * @param {Number} [filters.price.from]
- * @param {Number} [filters.price.to]
- */
-
 class Api {
     constructor(baseURL = '') {
         this.url = baseURL;
         this.queryString = baseURL;
+        this.actualFilters = {};
     }
     /**@param {Filters} filters*/
     combineQueryString({
@@ -77,8 +65,13 @@ class Api {
         });
     }
 
-    getProductsByFilter(/**@type {Filters}*/ filters = {}) {
-        this.combineQueryString(filters);
+    /**
+     * @param {Filters} filters
+     * @returns {Promise}
+     */
+    getProductsByFilter(filters = {}) {
+        this.actualFilters = { ...this.actualFilters, ...filters };
+        this.combineQueryString(this.actualFilters);
         console.log('queeeery', this.queryString);
         if (this.queryString.slice(-1) === '?') {
             return this.getInitialProducts();
@@ -92,5 +85,5 @@ class Api {
 }
 
 export const makeupApi = new Api(
-    'http://makeup-api.herokuapp.com/api/v1/product.json'
+    'http://makeup-api.herokuapp.com/api/v1/products.json'
 );

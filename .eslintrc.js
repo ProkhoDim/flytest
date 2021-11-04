@@ -9,5 +9,6 @@ module.exports = {
                     'useDispatch|useOtherHookWhichWillDefinitelyNotChange',
             },
         ],
+        curly: 'multi',
     },
 };

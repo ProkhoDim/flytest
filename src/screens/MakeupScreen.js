@@ -6,6 +6,8 @@ import { useNavigationButtonPress } from 'react-native-navigation-hooks/dist';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductItem from '../components/ProductItem';
 import SearchForm from '../components/SearchForm/SearchForm';
+import nav_comp from '../navigation/nav_comp';
+import { rightBtn_cart } from '../navigation/tabElements';
 import { CounterActions, MakeupActions } from '../redux';
 import { makeupSelectors } from '../redux/selectors';
 
@@ -33,18 +35,31 @@ const MakeupScreen = props => {
     }, [dispatch]);
 
     const filterButtonPress = ({ buttonId }) => {
-        console.log(buttonId);
-        if (buttonId === 'SearchOptions') {
-            dispatch(CounterActions.unsetIsCounter());
-            Navigation.mergeOptions('SIDE_MENU', {
-                sideMenu: { left: { visible: true, width: 250 } },
-            });
+        switch (buttonId) {
+            case 'SearchOptions':
+                dispatch(CounterActions.unsetIsCounter());
+                Navigation.mergeOptions('SIDE_MENU', {
+                    sideMenu: { left: { visible: true, width: 250 } },
+                });
+                break;
+            case 'Basket':
+                console.log('Open basket');
+                break;
+            default:
+                console.log(buttonId);
+                break;
         }
     };
     useNavigationButtonPress(filterButtonPress, props.componentId);
 
     const renderProductItem = ({ item }) => {
-        return <ProductItem product={item} key={item.id} />;
+        return (
+            <ProductItem
+                product={item}
+                key={item.id}
+                componentId={props.componentId}
+            />
+        );
     };
     return (
         <View style={styles.wrap}>
@@ -54,7 +69,6 @@ const MakeupScreen = props => {
                 style={styles.productList}
                 showsVerticalScrollIndicator={false}
                 columnWrapperStyle={styles.productColumnWrapper}
-                contentContainerStyle={styles.productContainer}
                 keyExtractor={(item, index) => item.name + index}
                 renderItem={renderProductItem}
             />
@@ -65,6 +79,7 @@ const MakeupScreen = props => {
 MakeupScreen.options = {
     topBar: {
         leftButtons: [{ id: 'SearchOptions', text: 'Filters' }],
+        ...rightBtn_cart,
     },
 };
 
@@ -79,11 +94,9 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 10,
     },
-    productContainer: {
-        width: '100%',
-    },
     productColumnWrapper: {
         // alignItems: 'center',
         justifyContent: 'space-between',
+        flexGrow: 1,
     },
 });

@@ -1,8 +1,8 @@
 import createAction from '../createAction';
 import {
-    GET_FILTERED_LIST_SUCCESS,
+    ADD_TO_CART,
     GET_INITIAL_LIST,
-    GET_INITIAL_LIST_SUCCESS,
+    GET_PRODUCTS_SUCCES,
     UPDATE_BRAND,
     UPDATE_TAG,
 } from './actionTypes';
@@ -10,5 +10,5 @@ import {
 export const updateTag = createAction(UPDATE_TAG);
 export const updateBrand = createAction(UPDATE_BRAND);
 export const getInitialList = createAction(GET_INITIAL_LIST);
-export const setInitialList = createAction(GET_INITIAL_LIST_SUCCESS);
-export const setFilteredList = createAction(GET_FILTERED_LIST_SUCCESS);
+export const setProducts = createAction(GET_PRODUCTS_SUCCES);
+export const addToCart = createAction(ADD_TO_CART);

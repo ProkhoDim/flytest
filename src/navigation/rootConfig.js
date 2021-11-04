@@ -61,6 +61,7 @@ export const bottomTabs = {
                     },
                 ],
                 options: {
+                    
                     bottomTab: {
                         text: routes.SETTINGS,
                         textColor: '#000',

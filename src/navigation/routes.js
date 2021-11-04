@@ -9,4 +9,5 @@ export default {
     MAKEUP: 'Makeup',
     FILTERS: 'MakeupFilters',
     SIDE_MENU_COMPONENT: 'SideMenuComponent',
+    MAKEUP_PRODUCT:'MakeupProduct'
 };

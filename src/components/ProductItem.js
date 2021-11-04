@@ -1,10 +1,47 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Navigation } from 'react-native-navigation';
+import MakeupProduct from './MakeupProduct';
+import routes from '../navigation/routes';
+import { rightBtn_cart } from '../navigation/tabElements';
 
-const ProductItem = ({ product }) => {
+/**
+ * @typedef {Object} MakeupItem
+ * @property {Number} id
+ * @property {String} brand
+ * @property {String} name
+ * @property {String} price
+ * @property {String} description
+ * @property {Number} rating
+ * @property {String} category
+ * @property {String} product_type
+ * @property {String[]} tag_list
+ * @property {String} api_featured_image
+ * @property {{hex_value: string, colour_name:string}[]}  product_colors
+ */
+
+/** @param {{product: MakeupItem, componentId:string}} params  */
+const ProductItem = ({ product, componentId }) => {
+    const selectProduct = () => {
+        Navigation.push(componentId, {
+            component: {
+                name: routes.MAKEUP_PRODUCT,
+                options: {
+                    topBar: {
+                        title: { text: `Product ${product.id}` },
+                        leftButtons: [],
+                        ...rightBtn_cart,
+                        backButton: { visible: true },
+                    },
+                    bottomTabs: { visible: false },
+                },
+                passProps: { product },
+            },
+        });
+    };
     return (
-        <TouchableOpacity style={styles.container}>
-            <View>
+        <TouchableOpacity style={styles.container} onPress={selectProduct}>
+            <View style={styles.imageContainer}>
                 <Image
                     source={{ uri: 'http:' + product.api_featured_image }}
                     style={styles.image}
@@ -22,7 +59,7 @@ export default ProductItem;
 
 const styles = StyleSheet.create({
     container: {
-        width: '45%',
+        flex: 1/2,
         margin: 5,
         paddingVertical: 10,
         borderWidth: 1,
@@ -30,6 +67,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'space-between',
         alignItems: 'center',
+        
+    },
+    imageContainer: {
+        alignItems: 'center',  
     },
     text: {
         textAlign: 'center',

@@ -13,4 +13,5 @@ export const makeupSelectors = {
     tags: state => state.makeup.tags,
     brands: state => state.makeup.brands,
     products: state => state.makeup.products,
+    bought: state => state.makeup.boughtProducts,
 };
