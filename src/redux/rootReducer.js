@@ -8,3 +8,7 @@ export default combineReducers({
     search: searchReducer,
     makeup: makeupReducer,
 });
+
+// alfha;ksdjf;ajsbdf;jansdfj
+// a;dsljfh;adjlshfjads;fahjs;df
+// adsfba;sldjfa/lsd/fkjasd/lf
